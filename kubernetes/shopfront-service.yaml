@@ -29,9 +29,11 @@ spec:
       labels:
         app: shopfront
     spec:
+      imagePullSecrets:
+        - name: docker-registry
       containers:
       - name: djshopfront
-        image: danielbryantuk/djshopfront:latest
+        image: vinaytalla/shopfront:v1
         ports:
         - containerPort: 8010
         livenessProbe:

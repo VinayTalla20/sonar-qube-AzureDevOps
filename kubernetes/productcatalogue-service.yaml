@@ -29,9 +29,11 @@ spec:
       labels:
         app: productcatalogue
     spec:
+      imagePullSecrets:
+          - name: docker-registry
       containers:
       - name: productcatalogue
-        image: danielbryantuk/djproductcatalogue:latest
+        image: vinaytalla/productcatalogue:v1
         ports:
         - containerPort: 8020
         livenessProbe:

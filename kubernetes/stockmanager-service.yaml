@@ -30,9 +30,11 @@ spec:
       labels:
         app: stockmanager
     spec:
+      imagePullSecrets:
+        - name: docker-registry
       containers:
       - name: stockmanager
-        image: danielbryantuk/djstockmanager:latest
+        image: vinaytalla/stockmanager:v1
         ports:
         - containerPort: 8030
         livenessProbe:
