@@ -33,7 +33,7 @@ spec:
         - name: docker-registry
       containers:
       - name: djshopfront
-        image: vinaytalla/shopfront:v1
+        image: vinaytalla/shopfront-application-ci:36
         ports:
         - containerPort: 8010
         livenessProbe:
