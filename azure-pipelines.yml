@@ -1,0 +1,69 @@
+
+
+variables:
+- group: devgrp
+- name: COMMIT
+  value: $(Build.SourceVersion)$(Build.BuildNumber)
+- name: SERVICE_NAME
+  value: "facebookservice"
+- name: pathToCache
+  value: $(Pipeline.Workspace)/.m2/repository
+- name: cacheKey
+  value: maven | "$(Agent.OS)" | **/pom.xml
+- name: restoreKeys
+  value: ' | maven | "$(Agent.OS)" maven '
+- name: PMD_ANALYSIS_SKIP
+  value: FALSE
+- name: JUNIT_TESTS_ANALYSIS_SKIP
+  value: FALSE
+- name: BUILD_QUALITYCHECK
+  value: FALSE  
+- name: SONAR_ANALYSIS
+  value: TRUE
+
+resources:
+   repositories:
+   - repository: self
+     type: git
+     ref: azure-pipelines
+
+name: $(date:yyyyMMdd)$(rev:.r)
+trigger: none
+pr: none
+pool:
+  vmImage: 'ubuntu-18.04'
+
+stages:
+- stage: build_and_test
+  displayName: Build and test
+  dependsOn:
+  condition: and(not(failed()), in(variables['Build.Reason'], 'IndividualCI', 'Manual'))
+  variables:
+    - name: ENV
+      value: dev
+    - name: CONFIG_REPO_PATH
+      value: dev
+  jobs:
+  - job: build
+    displayName: Build
+    timeoutInMinutes: 10
+    steps:
+    - template: ./pipeline/test-build-steps.yaml
+
+- stage: deploy_dev
+  displayName: Deploy to Dev
+  dependsOn: build_and_test
+  condition: and(not(failed()), in(variables['Build.Reason'], 'IndividualCI', 'Manual'))
+  variables:
+    - name: ENV
+      value: dev
+  jobs:
+  - deployment: deploy
+    displayName: Deploy
+    environment: dev-default
+    timeoutInMinutes: 10
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ./pipeline/deploy-steps.yaml
