@@ -27,21 +27,6 @@ trigger: none
 pr: none
 pool:
   name: kubernetes
-stages:
-- stage: build_and_test
-  displayName: Build and test
-  dependsOn: null
-  condition: and(not(failed()), in(variables['Build.Reason'], 'IndividualCI', 'Manual'))
-  variables:
-  - name: ENV
-    value: dev
-  - name: CONFIG_REPO_PATH
-    value: dev
 
-- stage: deploy_dev
-  displayName: Deploy to Dev
-  dependsOn: build_and_test
-  condition: and(not(failed()), in(variables['Build.Reason'], 'IndividualCI', 'Manual'))
-  variables:
-  - name: ENV
-    value: dev
+steps:
+  - script:  echo "HOSTNAME"
