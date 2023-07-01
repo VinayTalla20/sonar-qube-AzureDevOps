@@ -1,5 +1,4 @@
 variables:
-- group: devgrp
 - name: COMMIT
   value: $(Build.SourceVersion)$(Build.BuildNumber)
 - name: SERVICE_NAME
