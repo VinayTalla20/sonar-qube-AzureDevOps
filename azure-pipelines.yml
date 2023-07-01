@@ -28,9 +28,10 @@ pr: none
 pool:
   name: kubernetes
 
-steps:
-  - script:  
-        echo "$HOSTNAME"   \
-        cd shopfront/    \
-        mvn clean install    \
-        ../home/vinay/bin/buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context=. --local dockerfile=.
+steps: 
+  - script: echo This runs in the bash shell on self hosted machine 
+  - bash: |
+      echo "${HOSTNAME}"   
+      cd shopfront/    
+      mvn clean install    
+      ../home/vinay/bin/buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context=. --local dockerfile=.
