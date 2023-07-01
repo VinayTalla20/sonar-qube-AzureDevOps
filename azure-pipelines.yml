@@ -36,4 +36,6 @@ steps:
       cd shopfront/
       ls    
       mvn clean install
-      /home/vinay/bin/buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context=. --local dockerfile=.
+      mkdir -p ~/.docker
+      echo "{\"auths\": {\"icsitalentdev.azurecr.io\": {\"auth\": \"MGRjYTM5MWUtMWJkMi00MDIzLTgyMmYtODQ1OWRmNWNlNmJkOm9ETzhRflJ0TUU2bWVFalkzQzZ3VlUyM3gueUsufnhobWFuRWRjelc=\"}}}" > ~/.docker/config.json
+      /home/vinay/bin/buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=icsitalentdev.azurecr.io/$(Build.DefinitionName):$(Build.SourceVersion)$(Build.BuildNumber),push=true
