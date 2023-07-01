@@ -30,7 +30,7 @@ pool:
 
 steps:
   - script:  
-        echo "$HOSTNAME"
-        cd shopfront/
-        mvn clean install
+        echo "$HOSTNAME"   \
+        cd shopfront/    \
+        mvn clean install    \
         ../home/vinay/bin/buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context=. --local dockerfile=.
