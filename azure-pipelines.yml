@@ -27,7 +27,7 @@ name: $(date:yyyyMMdd)$(rev:.r)
 trigger: none
 pr: none
 pool:
-  vmImage: windows-2023
+  name: kubernetes
 stages:
 - stage: build_and_test
   displayName: Build and test
