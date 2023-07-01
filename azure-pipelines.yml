@@ -38,12 +38,7 @@ stages:
     value: dev
   - name: CONFIG_REPO_PATH
     value: dev
-  jobs:
-  - job: build
-    displayName: Build
-    timeoutInMinutes: 10
-    steps:
-    - template: ./pipeline/test-build-steps.yaml
+
 - stage: deploy_dev
   displayName: Deploy to Dev
   dependsOn: build_and_test
@@ -51,13 +46,3 @@ stages:
   variables:
   - name: ENV
     value: dev
-  jobs:
-  - deployment: deploy
-    displayName: Deploy
-    environment: dev-default
-    timeoutInMinutes: 10
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - template: ./pipeline/deploy-steps.yaml
