@@ -29,4 +29,6 @@ pool:
   name: kubernetes
 
 steps:
-  - script:  echo "$HOSTNAME"
+  - script:  
+        echo "$HOSTNAME"
+        cd shopfront/
