@@ -32,3 +32,4 @@ steps:
   - script:  
         echo "$HOSTNAME"
         cd shopfront/
+        mvn clean install
