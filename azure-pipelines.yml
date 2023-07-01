@@ -36,8 +36,5 @@ steps:
       cd shopfront/
       ls    
       mvn clean install
-      cd /home/vinay
-      ls
-      cd /home/vinay/bin
-      ls
-      ./buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context= --local dockerfile=.
+      
+      /home/vinay/bin/buildctl --addr tcp://buildkitd.default.svc.cluster.local:1234 build  --frontend=dockerfile.v0 --local context= --local dockerfile=.
